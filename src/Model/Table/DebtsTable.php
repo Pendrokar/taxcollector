@@ -55,7 +55,7 @@ class DebtsTable extends Table
             ->notEmpty('title');
 
         $validator
-            ->integer('value')
+            ->nonNegativeInteger('value')
             ->requirePresence('value', 'create')
             ->notEmpty('value');
 
