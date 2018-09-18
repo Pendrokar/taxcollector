@@ -31,6 +31,7 @@ class DebtsTableTest extends TestCase
         $expected = [
             ['id' => 1, 'title' => 'Invoice number 1', 'value' => '100000'],
             ['id' => 2, 'title' => 'Invoice number 2', 'value' => '150000'],
+            ['id' => 3, 'title' => 'Overpaid invoice', 'value' => '10000'],
         ];
 
         $this->assertEquals($expected, $result);

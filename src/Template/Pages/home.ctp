@@ -60,7 +60,7 @@ payment and how much)
 - show total open balance of debt rows on given date
  -->
             <div class="col-sm-6">
-                <h1>Debt Rows</h1>
+                <h1><a href="/debts">Debt Rows</a></h1>
                 <table class="d-table debt-rows-table">
                     <thead>
                         <tr>
@@ -78,7 +78,7 @@ payment and how much)
                 </table>
             </div>
             <div class="col-sm-6">
-                <h1>Payments</h1>
+                <h1><a href="/payments">Payments</a></h1>
                 <table class="d-table payment-rows-table">
                     <thead>
                         <tr>
