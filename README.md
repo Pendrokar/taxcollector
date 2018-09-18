@@ -1,51 +1,26 @@
-# CakePHP Application Skeleton
-
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 3.x.
-
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+# CakePHP Prototype Application
 
 ## Installation
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+1. Run the following while also saying 'Y' to setting folder permissions when prompted: composer install
+2. Import tables from config/schema/tables.sql file with phpMyAdmin or the following mysql command within the project: mysql -u<username> -p taxcollector < config/schema/tables.sql
+3. Configure MySQL setttings on lines at ~258 and ~300(my_app & secret) of config/app.php
 
-If Composer is installed globally, run
+## Running tests
 
-```bash
-composer create-project --prefer-dist cakephp/app
-```
+Run: vendor/bin/phpunit tests/
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+## Import fake data
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
+200 rows of fake data is prepared under tests/Fixtures/sql/fakedata.sql
+Import them through phpMyAdmin or the following mysql command within the project: mysql -u<username> -p taxcollector < tests/Fixture/sql/fakedata.sql
+mysql -uroot -p taxcollector < tests/Fixtures/sql/fakedata.sql
 
 You can now either use your machine's webserver to view the default home page, or start
 up the built-in webserver with:
 
 ```bash
-bin/cake server -p 8765
+bin/cake server -p 8243
 ```
 
-Then visit `http://localhost:8765` to see the welcome page.
-
-## Update
-
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
-
-## Configuration
-
-Read and edit `config/app.php` and setup the `'Datasources'` and any other
-configuration relevant for your application.
-
-## Layout
-
-The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+Then visit `http://localhost:8243` to see the welcome page.
