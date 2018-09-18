@@ -15,7 +15,7 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
+use Cake\Http\Exception\ForbiddenException as HFExcept;
 use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 
@@ -45,7 +45,7 @@ class PagesController extends AppController
             return $this->redirect('/');
         }
         if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
+            throw new HFExcept();
         }
         $page = $subpage = null;
 
