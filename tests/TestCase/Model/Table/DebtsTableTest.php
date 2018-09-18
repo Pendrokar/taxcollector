@@ -26,23 +26,13 @@ class DebtsTableTest extends TestCase
             unset(
                 $result[$key]['date']
             );
-
         }
 
         $expected = [
-            ['id' => 1, 'title' => 'Invoice number 1', 'value' => '1000'],
-            ['id' => 2, 'title' => 'Invoice number 2', 'value' => '1500'],
-            // , 'date' => '01.01.2018'
-            // , 'date' => '01.02.2018'
+            ['id' => 1, 'title' => 'Invoice number 1', 'value' => '100000'],
+            ['id' => 2, 'title' => 'Invoice number 2', 'value' => '150000'],
         ];
 
         $this->assertEquals($expected, $result);
     }
-
-    // public function tearDown()
-    // {
-    //     // parent::tearDown();
-    //     // Clean up after we're done
-    //     // unset($this->component, $this->controller);
-    // }
 }

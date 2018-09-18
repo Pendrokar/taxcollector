@@ -31,4 +31,14 @@ class Payment extends Entity
         'debt_id' => true,
         'debt' => true
     ];
+
+    protected function _getFormattedValue()
+    {
+        return number_format($this->_properties['value']/100, 2, '.', ' ');
+    }
+
+    protected function _getFormattedDate()
+    {
+        return $this->_properties['date']->format('d.m.Y');
+    }
 }

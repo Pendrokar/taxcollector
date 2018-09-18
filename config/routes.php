@@ -128,6 +128,24 @@ Router::scope('/api',  ['controller' => 'Api'], function(RouteBuilder $routes) {
 	);
 });
 
+$routes->connect('/api/debts.json',
+	[
+		'controller' => 'Debts',
+		'action'=>'frontend',
+		'_ext'=>'json',
+		'[method]'=>'GET'
+	]
+);
+
+$routes->connect('/api/payments.json',
+	[
+		'controller' => 'Payments',
+		'action'=>'frontend',
+		'_ext'=>'json',
+		'[method]'=>'GET'
+	]
+);
+
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.

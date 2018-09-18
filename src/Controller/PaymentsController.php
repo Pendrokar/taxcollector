@@ -109,4 +109,55 @@ class PaymentsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Get Balance method  API URL  /api/balance method: GET
+     * @return json response
+     */
+    public function frontend()
+    {
+        // TODO: get GET the CakePHP way
+        $start = (int)$_GET['start'];
+        $length = (int)$_GET['length'];
+        $sort = (int)$_GET['order'][0]['column'];
+        $dir = (string)$_GET['order'][0]['dir'];
+        switch ($sort) {
+            case 1:
+                $order = ['value' => $dir];
+                break;
+            case 2:
+                $order = ['date' => $dir];
+                break;
+            default:
+                $order = ['id' => 'ASC'];
+                break;
+        }
+
+        $query = $this
+            ->Payments
+            ->find();
+        $recordsTotal = $query->select(['count' => $query->func()->count('*')])
+            ->first();
+        // TODO: Merge into one call
+        $payments = $this
+            ->Payments
+            ->find()
+            ->offset($start)
+            ->limit($length)
+            ->all();
+
+        $formattedPayments = [];
+        foreach ($payments as $payment) {
+            $formattedPayments[] = [
+                'id' => $payment->id,
+                'value' => $payment->formattedValue,
+                'date' => $payment->formattedDate
+            ];
+        }
+
+        $this->set('recordsFiltered', $recordsTotal['count']);
+        $this->set('recordsTotal', $recordsTotal['count']);
+        $this->set('data', $formattedPayments);
+        $this->set('_serialize', ['data', 'recordsFiltered', 'recordsTotal']);
+    }
 }

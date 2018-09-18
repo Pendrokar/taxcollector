@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Utility\Text;
 
 /**
  * Debt Entity
@@ -28,4 +29,14 @@ class Debt extends Entity
         'value' => true,
         'date' => true
     ];
+
+    protected function _getFormattedValue()
+    {
+        return number_format($this->_properties['value']/100, 2, '.', ' ');
+    }
+
+    protected function _getFormattedDate()
+    {
+        return $this->_properties['date']->format('d.m.Y');
+    }
 }

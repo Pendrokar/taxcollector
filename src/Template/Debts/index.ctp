@@ -27,8 +27,8 @@
             <tr>
                 <td><?= $this->Number->format($debt->id) ?></td>
                 <td><?= h($debt->title) ?></td>
-                <td><?= $this->Number->format($debt->value) ?></td>
-                <td><?= h($debt->date) ?></td>
+                <td><?= $debt->formattedValue ?></td>
+                <td><?= $debt->formattedDate ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $debt->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $debt->id]) ?>
