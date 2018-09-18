@@ -32,6 +32,12 @@ class PaymentsFixture extends TestFixture
                 'value' => 150000,
                 'debt_id' => 2
             ],
+            [
+                'id' => 3,
+                'date' => '2018-03-02',
+                'value' => 50000,
+                'debt_id' => 3
+            ],
         ];
         parent::init();
     }

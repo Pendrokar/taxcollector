@@ -86,7 +86,11 @@ class ApiController extends AppController
 		// Retrieve debt row
 		$debt = TableRegistry::get('Debts')->get($debtRow);
 		$balance = $debt->value;
-		if ((int)$date->format('U') < (int)$debt->date->format('U')) {
+		if (
+			$targetDate
+			&& ((int)$date->format('U') < (int)$debt->date->format('U'))
+		)
+		{
 			$this->set('balance', 0);
 			$this->set('_serialize', ['balance']);
 			return;
@@ -104,7 +108,7 @@ class ApiController extends AppController
 
 		$payments = $query->all();
 
-		if($payments)
+		if ($payments)
 		{
 			foreach ($payments as $payment)
 			{
@@ -113,7 +117,10 @@ class ApiController extends AppController
 		}
 
 		// Absolute
-		// if($balance > 0) = $balance/100;
+		if ($balance < 0)
+		{
+			$balance = 0;
+		}
 		// From cents to unit
 		$balance = $balance/100;
 		$balance = number_format($balance, 0, '.', ' ');

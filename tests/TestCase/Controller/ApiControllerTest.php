@@ -95,4 +95,16 @@ class ApiControllerTest extends IntegrationTestCase
 		$this->assertResponseOk();
 		$this->assertResponseContains('"balance": 0');
 	}
+
+	/**
+	 * - show 3. debt row overpaid balance, expect "0"
+	 *
+	 * @return void
+	 */
+	public function testOverpaid()
+	{
+		$this->get('/api/balance/row/3');
+		$this->assertResponseOk();
+		$this->assertResponseContains('"balance": "0"');
+	}
 }

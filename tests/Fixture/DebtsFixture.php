@@ -31,6 +31,11 @@ class DebtsFixture extends TestFixture
                 'value' => 150000,
                 'date' => '2018-02-01',
             ],
+            [
+                'title' => 'Overpaid invoice',
+                'value' => 10000,
+                'date' => '2018-03-01',
+            ],
         ];
         parent::init();
     }
