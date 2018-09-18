@@ -84,13 +84,37 @@ Router::scope('/', function (RouteBuilder $routes) {
 
 // API Routes
 Router::scope('/api',  ['controller' => 'Api'], function(RouteBuilder $routes) {
+
+	// Debt Row Balance
+	$routes->connect('/balance/row/:id',
+		[
+			'action'=>'debtRowBalance',
+			'_ext'=>'json',
+			'[method]'=>'GET'
+		],
+		[
+			'pass' => ['id']
+		]
+	);
+	$routes->connect('/balance/row/:id/:targetDate',
+		[
+			'action'=>'debtRowBalance',
+			'_ext'=>'json',
+			'[method]'=>'GET'
+		],
+		[
+			'pass' => ['id', 'targetDate']
+		]
+	);
+
+	// balance
 	$routes->connect('/balance',
-			[
-				'action'=>'balance',
-				'_ext'=>'json',
-				'[method]'=>'GET'
-			]
-		);
+		[
+			'action'=>'balance',
+			'_ext'=>'json',
+			'[method]'=>'GET'
+		]
+	);
 
 	$routes->connect('/balance/:targetDate',
 		[
@@ -100,8 +124,9 @@ Router::scope('/api',  ['controller' => 'Api'], function(RouteBuilder $routes) {
 		],
 		[
 			'pass' => ['targetDate']
-		]);
-	});
+		]
+	);
+});
 
 /**
  * Load all plugin routes.  See the Plugin documentation on

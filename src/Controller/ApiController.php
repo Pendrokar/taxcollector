@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * API Controller
@@ -11,7 +12,7 @@ use Cake\ORM\TableRegistry;
 class ApiController extends AppController
 {
 	/**
-	 * Get Balance method  API URL  /api/balance method: POST
+	 * Get Balance method  API URL  /api/balance method: GET
 	 * @return json response
 	 * @author Yanis Lukes
 	 **/
@@ -61,6 +62,58 @@ class ApiController extends AppController
 			}
 		}
 
+		// From cents to unit
+		$balance = $balance/100;
+		$balance = number_format($balance, 0, '.', ' ');
+		$this->set('balance', $balance);
+		$this->set('_serialize', ['balance']);
+	}
+
+
+	/**
+	 * Get Debt Row Balance method  API URL  /api/debtrow method: GET
+	 * @return json response
+	 * @author Yanis Lukes
+	 **/
+	public function debtRowBalance(Int $debtRow, String $targetDate = '')
+	{
+		$balance = 0;
+		if ($targetDate)
+		{
+			$date = \DateTime::createFromFormat('d.m.Y', $targetDate);
+		}
+
+		// Retrieve debt row
+		$debt = TableRegistry::get('Debts')->get($debtRow);
+		$balance = $debt->value;
+		if ((int)$date->format('U') < (int)$debt->date->format('U')) {
+			$this->set('balance', 0);
+			$this->set('_serialize', ['balance']);
+			return;
+		}
+
+		// Collect payments
+		$query = TableRegistry::get('Payments')
+			->find()
+			->where(['debt_id' => $debtRow]);
+
+		if ($targetDate)
+		{
+			$query = $query->where(['date <=' => $date]);
+		}
+
+		$payments = $query->all();
+
+		if($payments)
+		{
+			foreach ($payments as $payment)
+			{
+				$balance -= $payment->value;
+			}
+		}
+
+		// Absolute
+		// if($balance > 0) = $balance/100;
 		// From cents to unit
 		$balance = $balance/100;
 		$balance = number_format($balance, 0, '.', ' ');
