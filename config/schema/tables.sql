@@ -7,9 +7,6 @@ SET time_zone = "+00:00";
 -- Database: `taxcollector`
 --
 
-CREATE DATABASE taxcollector;
-CREATE DATABASE taxcollector_test;
-
 -- --------------------------------------------------------
 
 --
